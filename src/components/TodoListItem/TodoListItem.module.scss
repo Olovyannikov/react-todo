@@ -1,0 +1,25 @@
+.todoListItem {
+  font-size: 1.25rem;
+  display: flex;
+  justify-content: space-between;
+  cursor: pointer;
+}
+
+.todoListItem button {
+  width: 35px;
+  margin: 3px;
+}
+
+.todoListItemLabel {
+  margin-left: 1.25rem;
+  line-height: 35px;
+  cursor: pointer;
+  user-select: none;
+
+}
+
+
+.todoListItem.important .todoListItemLabel {
+  font-weight: bold;
+  color: steelblue;
+}
