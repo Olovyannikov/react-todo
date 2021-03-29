@@ -2,23 +2,26 @@ import TodoListItem from "../TodoListItem/TodoListItem";
 import {ListGroup, ListGroupItem} from "react-bootstrap";
 import s from './TodoList.module.scss';
 
-const TodoList = ({items}) => {
+const TodoList = ({items, onDeleted}) => {
 
     const elements = items.map((item) => {
 
-        const {id, ...itemProps} = item;
+        const {id,  ...itemProps} = item;
 
         return (
             <ListGroupItem as={'li'} key={id}>
-                <TodoListItem {...itemProps} />
+                <TodoListItem
+                    {...itemProps}
+                    onDeleted={() => onDeleted(id)}
+                />
             </ListGroupItem>
         )
     });
 
     return (
-        <ListGroup as={"ul"} className={s.todoList}>
-            {elements}
-        </ListGroup>
+            <ListGroup as={"ul"} className={s.todoList}>
+                {elements}
+            </ListGroup>
     );
 }
 

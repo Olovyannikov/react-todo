@@ -3,6 +3,8 @@ import TodoList from "../TodoList/TodoList";
 import SearchPanel from "../SearchPanel/SearchPanel";
 import ItemStatusFilter from "../ItemStatusFilter/ItemStatusFilter";
 import styled from 'styled-components';
+import {useState} from "react";
+import ItemAddForm from "../ItemAddForm/ItemAddForm";
 
 const TodoAppBlock = styled.section`
   margin: 2rem auto 0 auto;
@@ -17,6 +19,23 @@ const TopPanel = styled.div`
 
 const App = ({items, placeholder}) => {
 
+    const [list, updateList] = useState(items);
+
+    const handleRemoveItem = id => {
+        updateList(list => list.filter(item => item.id !== id));
+    };
+
+    const handleAddItem = text => {
+        const newItem  = {
+            label: text,
+            important: false,
+            id: Math.floor(Math.random() * 10)
+        };
+
+        updateList(list => [...list, newItem])
+
+    };
+
     return (
         <TodoAppBlock>
             <AppHeader toDo={1} done={3}/>
@@ -24,7 +43,12 @@ const App = ({items, placeholder}) => {
                 <SearchPanel placeholder={placeholder}/>
                 <ItemStatusFilter/>
             </TopPanel>
-            <TodoList items={items}/>
+            <TodoList
+                onDeleted={handleRemoveItem}
+                items={list}
+            />
+
+            <ItemAddForm onItemAdded={handleAddItem}/>
         </TodoAppBlock>
     );
 
