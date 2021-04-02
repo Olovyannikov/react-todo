@@ -4,12 +4,12 @@ import {Button, ButtonGroup} from "react-bootstrap";
 import {faExclamation, faTrashAlt} from "@fortawesome/free-solid-svg-icons";
 import s from './TodoListItem.module.scss';
 
-const TodoListItem = ({label, onDeleted}) => {
+const TodoListItem = ({label, onDeleted, onItemSelect, items}) => {
+
+    let classNames = `${s.todoListItem}`;
 
     const [done, setDone] = useState(false);
     const [important, setImportant] = useState(false);
-
-    let classNames = `${s.todoListItem}`;
 
     if (done) {
         classNames += ' done';
@@ -19,12 +19,33 @@ const TodoListItem = ({label, onDeleted}) => {
         classNames += ' important';
     }
 
-    return (
 
+    const toggleProperty = (arr, id, propName) => {
+        const idx = arr.findIndex(el => el.id === id);
+
+        const oldItem = arr[idx];
+        const newItem = {...oldItem, [propName] : !oldItem[propName]}
+
+        return [
+            ...arr.slice(0, idx),
+            newItem,
+            ...arr.slice(idx + 1)
+        ]
+    }
+
+    const onToggleImportant = () => {
+        setImportant(!important)
+    };
+
+    const onToggleDone = (id) => {
+        setDone(!done)
+    }
+
+    return (
         <span
             className={s.todoListItem}>
             <span
-                onClick={() => setDone((done) => !done)}
+                onClick={onToggleDone}
                 className={classNames}
             >
                 {label}
@@ -42,7 +63,7 @@ const TodoListItem = ({label, onDeleted}) => {
                     type={'button'}
                     variant={"outline-success"}
                     size={'sm'}
-                    onClick={() => setImportant((important) => !important)}
+                    onClick={onToggleImportant}
                 >
                     <FontAwesomeIcon icon={faExclamation}/>
                 </Button>

@@ -1,14 +1,14 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import App from './components/App/App';
+import App, {createTodoItem} from './components/App/App';
 import './index.scss';
 
 const state = {
     todo:
         [
-            {label: 'Learn React', important: false, id: 1},
-            {label: 'Build Awesome App', important: true, id: 2},
-            {label: 'Have a lunch', important: false, id: 3}
+            createTodoItem('Drink coffee'),
+            createTodoItem('Make awesome app'),
+            createTodoItem('Have a lunch')
         ],
     placeholder: 'Type here...'
 };

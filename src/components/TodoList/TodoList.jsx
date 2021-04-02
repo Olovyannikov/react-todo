@@ -2,7 +2,7 @@ import TodoListItem from "../TodoListItem/TodoListItem";
 import {ListGroup, ListGroupItem} from "react-bootstrap";
 import s from './TodoList.module.scss';
 
-const TodoList = ({items, onDeleted}) => {
+const TodoList = ({items, onDeleted, onToggleDone, onToggleImportant, onItemSelect}) => {
 
     const elements = items.map((item) => {
 
@@ -13,6 +13,10 @@ const TodoList = ({items, onDeleted}) => {
                 <TodoListItem
                     {...itemProps}
                     onDeleted={() => onDeleted(id)}
+                    onToggleImportant={() => onToggleImportant(id)}
+                    onToggleDone={() => onToggleDone(id)}
+                    onItemSelect={() => onItemSelect()}
+                    items={items}
                 />
             </ListGroupItem>
         )
